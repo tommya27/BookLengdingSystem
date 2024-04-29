@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!-- 通过bean元素声明需要Spring创建的实例。该实例的类型通过class属性指定，并通过id属性为该实例指定一个名称，以便在程序中使用 -->
+
+	<!-- 使用id属性定义BookLendingMapper，其对应的实例化类cn.dsscm.dao.BookLendingMapperImpl -->
+	<bean id="BookLendingMapper" class="cn.dsscm.dao.BookLendingMapperImpl" />
+
+
+	<bean id="BookWithTypeInfoService" class="cn.dsscm.service.BookWithTypeInfoServiceImpl">
+		<property name="bookLendingMapper" ref="BookLendingMapper"></property>
+	</bean>
+
+
+</beans>

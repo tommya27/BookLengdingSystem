@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dsscm.dao.BookLendingMapper">
+	<!-- 关联映射查询图书信息和图书类型 -->
+	<select id="selectBooksWithTypeInfo" resultType="cn.dsscm.pojo.BookWithTypeInfo">
+		SELECT
+			b.bookId,
+			b.bookCode,
+			b.bookName,
+			b.bookAuthor,
+			b.publishPress,
+			b.publishDate,
+			b.borrowed,
+			t.typeName
+		FROM
+			book_info b
+				LEFT JOIN
+			book_type t
+			ON
+				b.bookType = t.id
+		order by
+			bookId
+				ASC
+
+	</select>
+
+	<!--	增加-->
+
+	<insert id="insertBook" parameterType="Book">
+		INSERT INTO test.book_info (bookCode, bookName, bookType, bookAuthor, publishPress, publishDate, borrowed, createdBy, creationTime, lastUpdateTime)
+		VALUES (#{bookCode}, #{bookName}, #{bookType}, #{bookAuthor}, #{publishPress}, #{publishDate}, #{borrowed}, #{createdBy}, #{creationTime}, #{lastUpdateTime})
+	</insert>
+
+	<!--删除-->
+	<delete id="deleteBookById" parameterType="Integer">
+		DELETE FROM test.book_info
+		WHERE bookId = #{bookId}
+	</delete>
+
+	<!--	修改-->
+	<update id="updateBookBySet" parameterType="Book">
+		UPDATE test.book_info
+		<set>
+			<if test="bookCode != null">
+				bookCode = #{bookCode},
+			</if>
+			<if test="bookName != null">
+				bookName = #{bookName},
+			</if>
+			<if test="bookType != null">
+				bookType = #{bookType},
+			</if>
+			<if test="bookAuthor != null">
+				bookAuthor = #{bookAuthor},
+			</if>
+			<if test="publishPress != null">
+				publishPress = #{publishPress},
+			</if>
+			<if test="publishDate != null">
+				publishDate = #{publishDate},
+			</if>
+			<if test="borrowed != null">
+				borrowed = #{borrowed},
+			</if>
+			<if test="createdBy != null">
+				createdBy = #{createdBy},
+			</if>
+			<if test="creationTime != null">
+				creationTime = #{creationTime},
+			</if>
+			<if test="lastUpdateTime != null">
+				lastUpdateTime = #{lastUpdateTime},
+			</if>
+		</set>
+		WHERE bookId = #{bookId}
+	</update>
+
+
+
+
+</mapper>  
+  
+  
